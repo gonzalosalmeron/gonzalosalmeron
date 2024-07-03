@@ -1,0 +1,27 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "astro",
+      "typescript",
+      "typescriptreact"
+    ],
+    "prettier.documentSelectors": ["**/*.astro"],
+    "[astro]": {
+      "editor.tabSize": 2,
+      "editor.detectIndentation": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.tabSize": 2,
+      "editor.detectIndentation": true
+    },
+    "[typescriptreact]": {
+      "editor.detectIndentation": true,
+      "editor.tabSize": 2
+    },
+}
