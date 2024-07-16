@@ -1,0 +1,38 @@
+---
+import Navbar from '@/components/widgets/Navbar.astro'
+import FrameIntro from '@/components/widgets/FrameIntro'
+---
+
+<div
+  class='min-h-screen flex flex-col justify-between px-8 py-4 relative overflow-hidden'
+>
+  <Navbar />
+  <div class='text-center pb-20'>
+    <h5 class='text-lg uppercase'>Software Developer</h5>
+    <h1 class='text-[5.8rem] uppercase font-bold [word-spacing:-0.8rem]'>
+      Gonzalo Salmerón
+    </h1>
+  </div>
+  <div class='flex justify-between'>
+    <div>You are curious :0</div>
+    <FrameIntro client:load />
+
+    <div>
+      <p class='leading-[1.20rem] text-end'>
+        /\_/\&nbsp;<br />
+        ( o.o )<br />
+        {'>'} ^ {'<'}&nbsp;
+      </p>
+      <div class='flex gap-4 items-center pt-2'>
+        <p
+          class='relative before:w-1.5 before:h-1.5 before:bg-green-500 before:absolute before:top-2 before:-left-3.5 before:rounded-full before:animate-pulse'
+        >
+          Available
+        </p>
+        <button class='py-2 px-3 bg-white text-black text-sm rounded-full'>
+          Get in touch
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+---
+const navigation = [
+  {
+    link: '#about-me',
+    name: 'About me'
+  },
+  {
+    link: '#projects',
+    name: 'Projects'
+  },
+  {
+    link: '#contact',
+    name: 'Contact'
+  }
+]
+---
+
+<header class='flex justify-between items-center'>
+  <p class='text-lg'>{`{GS}`}</p>
+
+  <nav class='flex items-center justify-between gap-8 border px-4 py-2'>
+    {
+      navigation.map(({ link, name }) => (
+        <a href={link} class='uppercase'>
+          {name}
+        </a>
+      ))
+    }
+  </nav>
+</header>
