@@ -20,7 +20,7 @@ const languagesAndTools = [
 ## Contact
 
 - **Email:** [gonzxlosalmeron@gmail.com](mailto:gonzxlosalmeron@gmail.com)
-- **LinkedIn:** [linkedin.com/in/yourprofile](https://www.linkedin.com/in/gonzalo-jos%C3%A9-salmer%C3%B3n-robles-301261209/)
+- **LinkedIn:** [linkedin.com/in/gonsalmeron](https://www.linkedin.com/in/gonsalmeron/)
 
 I love connecting with other professionals and technology enthusiasts. If you have any questions, collaboration ideas, or just want to say hi, feel free to reach out to me.
 
