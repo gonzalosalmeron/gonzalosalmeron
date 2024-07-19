@@ -16,6 +16,7 @@ export default function WindowFrame({
   draggable = false
 }: Props) {
   const id = useId()
+
   useEffect(() => {
     if (!draggable) return
 
@@ -33,41 +34,69 @@ export default function WindowFrame({
       mouseX = 0,
       mouseY = 0
 
-    const onMouseMove = (e: MouseEvent) => {
-      e.preventDefault()
-      posX = mouseX - e.clientX
-      posY = mouseY - e.clientY
-      mouseX = e.clientX
-      mouseY = e.clientY
+    const onMove = (clientX: number, clientY: number) => {
+      posX = mouseX - clientX
+      posY = mouseY - clientY
+      mouseX = clientX
+      mouseY = clientY
       if (frame) {
         frame.style.top = frame.offsetTop - posY + 'px'
         frame.style.left = frame.offsetLeft - posX + 'px'
       }
     }
 
-    const onMouseUp = () => {
-      document.removeEventListener('mouseup', onMouseUp)
+    const onMouseMove = (e: MouseEvent) => {
+      e.preventDefault()
+      onMove(e.clientX, e.clientY)
+    }
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const touch = e.touches[0]
+      onMove(touch.clientX, touch.clientY)
+    }
+
+    const onEnd = () => {
+      document.removeEventListener('mouseup', onEnd)
       document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('touchend', onEnd)
+      document.removeEventListener('touchmove', onTouchMove)
+    }
+
+    const onStart = (clientX: number, clientY: number) => {
+      mouseX = clientX
+      mouseY = clientY
+      document.addEventListener('mouseup', onEnd)
+      document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('touchend', onEnd)
+      document.addEventListener('touchmove', onTouchMove)
     }
 
     const onMouseDown = (e: MouseEvent) => {
       e.preventDefault()
-      mouseX = e.clientX
-      mouseY = e.clientY
-      document.addEventListener('mouseup', onMouseUp)
-      document.addEventListener('mousemove', onMouseMove)
+      onStart(e.clientX, e.clientY)
+    }
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault()
+      const touch = e.touches[0]
+      onStart(touch.clientX, touch.clientY)
     }
 
     if (header) {
       header.onmousedown = onMouseDown
+      header.ontouchstart = onTouchStart
     }
 
     return () => {
       if (header) {
         header.onmousedown = null
+        header.ontouchstart = null
       }
-      document.removeEventListener('mouseup', onMouseUp)
+      document.removeEventListener('mouseup', onEnd)
       document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('touchend', onEnd)
+      document.removeEventListener('touchmove', onTouchMove)
     }
   }, [id, draggable])
 
@@ -75,8 +104,8 @@ export default function WindowFrame({
     <div
       id={`wFrame-${id}`}
       className={clsx(
-        'border-2 aspect-video bg-black flex flex-col z-10',
-        frame == 'light' ? 'border-white' : 'border-zinc-700',
+        'border-2 bg-black z-10 flex flex-col',
+        frame == 'light' ? 'border-gray-100' : 'border-zinc-900',
         className,
         draggable && 'absolute'
       )}
@@ -85,7 +114,7 @@ export default function WindowFrame({
         id={`wFrame-${id}-header`}
         className={clsx(
           'flex justify-end py-1.5 pr-2',
-          frame == 'light' ? 'bg-white' : 'bg-zinc-700',
+          frame == 'light' ? 'bg-white' : 'bg-zinc-800',
           draggable && 'cursor-grab'
         )}
       >
@@ -97,6 +126,23 @@ export default function WindowFrame({
         />
       </div>
       {children}
+      {/* <div className='w-full flex-1 overflow-y-auto'>{children}</div> */}
+      {/* <div
+        id={`wFrame-${id}-header`}
+        className={clsx(
+          'flex justify-end py-1.5 pr-2',
+          frame == 'light' ? 'bg-white' : 'bg-zinc-800',
+          draggable && 'cursor-grab'
+        )}
+      >
+        <IconXMark
+          className={clsx(
+            'w-4 h-4 cursor-not-allowed',
+            frame != 'light' ? 'text-white' : 'text-zinc-700'
+          )}
+        />
+      </div>
+      {children} */}
     </div>
   )
 }

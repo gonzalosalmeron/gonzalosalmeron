@@ -1,12 +1,19 @@
 ---
+import clsx from 'clsx'
 interface Props {
   /** example => border-white/20 */
   borderColor?: string
+  isAbsolute?: boolean
 }
-const { borderColor = 'border-white/20' } = Astro.props
+const { borderColor = 'border-white/20', isAbsolute } = Astro.props
 ---
 
-<div class='px-8 flex justify-between h-screen fixed inset-0 z-[-1]'>
+<div
+  class={clsx(
+    'px-8 flex justify-between inset-0 z-[-1]',
+    isAbsolute ? 'absolute' : 'fixed h-screen'
+  )}
+>
   <div class=`border-r ${borderColor}`></div>
   <div class=`border-r ${borderColor} hidden sm:block`></div>
   <div class=`border-r ${borderColor}`></div>

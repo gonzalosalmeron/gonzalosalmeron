@@ -1,0 +1,13 @@
+---
+import BgLines from '@/components/widgets/BgLines.astro'
+import FrameAboutMe from '@/components/widgets/FrameAbouteMe'
+---
+
+<section id='aboutme' class='relative bg-white z-0'>
+  <BgLines borderColor='border-black' isAbsolute />
+  <div
+    class='mt-16 min-h-screen flex items-center overflow-hidden justify-center py-20 px-4'
+  >
+    <FrameAboutMe client:load />
+  </div>
+</section>
