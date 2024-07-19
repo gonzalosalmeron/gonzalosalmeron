@@ -17,8 +17,38 @@ import BgLines from '@/components/widgets/BgLines.astro'
     <meta name='generator' content={Astro.generator} />
     <title>{`{GS}`}</title>
   </head>
-  <body class='bg-black text-white antialiased font-courier relative'>
+  <body
+    class='bg-black text-white antialiased font-courier relative overflow-x-hidden'
+  >
     <BgLines />
+    <div
+      id='cursor'
+      class='bg-white rounded-full fixed z-50 mix-blend-difference pointer-events-none'
+      style='width: 20; heigth: 20;'
+    >
+    </div>
     <slot />
   </body>
 </html>
+
+<script>
+  import gsap from 'gsap'
+
+  const cursor = document.getElementById('cursor')
+
+  document.onmousemove = (e) => {
+    const target = e.target as HTMLElement
+    const cursorSize = ['a'].includes(target?.tagName.toLowerCase() ?? '')
+      ? 40
+      : 20
+    const transform = cursorSize / 2
+
+    gsap.to(cursor, { width: cursorSize, height: cursorSize })
+
+    gsap.to(cursor, {
+      left: e.clientX - transform,
+      top: e.clientY - transform,
+      ease: 'power2.out'
+    })
+  }
+</script>
