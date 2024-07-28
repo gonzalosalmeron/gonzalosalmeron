@@ -45,7 +45,7 @@ export default function FrameAbsoluteMe() {
         callback?: () => void
       ) => {
         tl.to(inputRef.current, {
-          duration: 3.5,
+          duration: 2,
           delay: 1,
           text: { value },
           ease: 'none'
