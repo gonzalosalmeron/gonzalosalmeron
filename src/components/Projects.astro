@@ -1,0 +1,57 @@
+---
+import { projects } from '@/utils/libs'
+import clsx from 'clsx'
+---
+
+<section id='projects' class='h-fit py-28 px-8'>
+  <div class='w-full'>
+    <header class='flex items-center gap-4'>
+      <h2 class='text-2xl'>Projects</h2>
+      <div class='border border-white/40 rounded-full pr-2.5 pl-6 py-0.5'>
+        <p
+          class='relative text-sm before:w-1.5 before:h-1.5 before:bg-green-500 before:absolute before:top-1.5 before:-left-3.5 before:rounded-full before:animate-pulse'
+        >
+          Update 28.07.2024
+        </p>
+      </div>
+    </header>
+
+    <div class='flex flex-col gap-6 pt-6'>
+      <div
+        class='grid md:auto-rows-[28rem] grid-cols-1 md:grid-cols-3 gap-2.5 mx-auto mb-20'
+      >
+        {
+          projects
+            .sort((a, b) => b.date.getDate() - a.date.getDate())
+            .map((project, i) => (
+              <div
+                class={clsx(
+                  'row-span-1 hover:shadow-xl transition overflow-hidden duration-200 shadow-input dark:shadow-none bg-white border border-white relative group',
+                  (i % 7 === 3 || i % 7 === 6) && 'md:col-span-2'
+                )}
+              >
+                <div class='absolute inset-0 bg-gradient-to-t from-zinc-900/80 to-transparent z-10 opacity-0 group-hover:opacity-100 duration-300 flex flex-col justify-end p-3 project-card'>
+                  <div class='translate-y-14 group-hover:translate-y-0 duration-300'>
+                    <p>
+                      {`(
+                        ${(i + 1).toLocaleString(undefined, {
+                          minimumIntegerDigits: 2
+                        })}
+                      )`}
+                    </p>
+                    <p class='text-base uppercase'>{project.name}</p>
+                    <p class='text-sm'>{project.description}</p>
+                  </div>
+                </div>
+                <img
+                  src={project.img}
+                  alt={project.name}
+                  class='object-cover w-full h-full group-hover:scale-105 duration-300'
+                />
+              </div>
+            ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
