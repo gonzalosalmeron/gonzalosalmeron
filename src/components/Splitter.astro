@@ -1,0 +1,43 @@
+<section class='min-h-[150vh] flex items-start justify-center'>
+  <svg
+    id='circular-text'
+    xmlns='http://www.w3.org/2000/svg'
+    xml:lang='en'
+    xmlns:xlink='http://www.w3.org/1999/xlink'
+    viewBox='0 0 500 500'
+    class='w-40 fill-white text-6xl sticky top-1/3'
+  >
+    <title>Cool projects, future unfolds</title>
+    <defs>
+      <path
+        id='textcircle'
+        d='M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z'
+        transform='rotate(12,250,250)'></path>
+    </defs>
+    <g class='textcircle'>
+      <text textLength='940'>
+        <textPath
+          xlink:href='#textcircle'
+          aria-label='CSS & SVG are awesome'
+          textLength='1000'
+          class='text-white uppercase'
+        >
+          Cool projects, future unfolds &amp;&amp;
+        </textPath>
+      </text>
+    </g>
+  </svg>
+</section>
+
+<script>
+  const element = document.getElementById('circular-text')
+
+  if (element) {
+    document.addEventListener('scroll', () => {
+      const scrollDeg = document.getElementsByTagName('html')[0]?.scrollTop ?? 0
+
+      element.style.rotate = `${scrollDeg / 2}deg`
+      element.style.scale = `${Math.min(scrollDeg / 30, 120)}%`
+    })
+  }
+</script>
