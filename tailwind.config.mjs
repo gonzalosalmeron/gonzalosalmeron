@@ -7,6 +7,15 @@ export default {
     extend: {
       fontFamily: {
         courier: ['Courier Prime', ...defaultTheme.fontFamily.mono]
+      },
+      animation: {
+        'infinite-scroll': 'infinite-scroll 22s linear infinite'
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' }
+        }
       }
     }
   },

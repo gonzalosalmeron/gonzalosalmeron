@@ -1,0 +1,84 @@
+---
+const navigation = [
+  {
+    link: '#',
+    name: 'Intro'
+  },
+  {
+    link: '#aboutme',
+    name: 'About me'
+  },
+  {
+    link: '#projects',
+    name: 'Projects'
+  }
+]
+---
+
+<section id='footer' class='w-full pt-32 pb-6'>
+  <div class='px-8'>
+    <footer
+      class='bg-white px-4 pt-4 pb-2 sm:px-10 sm:pt-10 sm:pb-4 text-black'
+    >
+      <div class='border-y border-black flex justify-between py-6 px-4'>
+        <p class='text-3xl sm:text-5xl max-w-[15ch] sm:max-w-full flex-1'>
+          Want to contact me?
+        </p>
+        <div class='flex-1 hidden sm:flex justify-center'>
+          <div class='h-full bg-black w-px'></div>
+        </div>
+        <div class='flex-1 justify-end text-white hidden sm:flex'>
+          <div
+            class='flex-col h-fit gap-4 bg-black pl-3 pr-2 py-1 ring-8 ring-black ring-offset-2 ring-offset-white'
+          >
+            <p class='text-end text-4xl overflow-hidden'>*</p>
+            <p class='-mt-6 pr-14 text-lg font-medium'>
+              Let's work <br /> Together!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class='w-full flex flex-col sm:flex-row justify-between items-start sm:items-end pt-3'
+      >
+        <ul class='flex items-center gap-4'>
+          {
+            navigation.map(({ name, link }) => (
+              <li>
+                <a href={link} class='text-sm'>
+                  {name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div>
+          <!-- <h6>Contact</h6> -->
+          <a href='mailto:gonzxlosalmeron@gmail.com' class='text-xs'>
+            gonzxlosalmeron@gmail.com
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div
+    class='w-full inline-flex flex-nowrap border-y border-white mt-6 py-1.5 max-w-screen overflow-hidden'
+  >
+    {
+      Array(2)
+        .fill('')
+        .map(() => (
+          <ul class='flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll'>
+            {Array(14)
+              .fill('')
+              .map(() => (
+                <li>
+                  <p class='whitespace-nowrap'>{`<never-settle />`}</p>
+                </li>
+              ))}
+          </ul>
+        ))
+    }
+  </div>
+</section>
