@@ -67,7 +67,7 @@ export default function FrameAbsoluteMe() {
 
       addCommandAnimation('curl -4 ifconfig.me', 'command-curl')
       addCommandAnimation('cat aboutme.txt', 'command-cat')
-      addCommandAnimation('open me.webp', 'command-open', () => {
+      addCommandAnimation('open me.avif', 'command-open', () => {
         document.querySelector('.frame-mewebp')?.classList.remove('hidden')
       })
     }
@@ -89,7 +89,7 @@ export default function FrameAbsoluteMe() {
         draggable
       >
         <img
-          src='/me.webp'
+          src='/me.avif'
           alt='who is this?'
           className='object-cover w-full h-full overflow-hidden'
           decoding='async'
@@ -135,7 +135,7 @@ export default function FrameAbsoluteMe() {
           <CommandBlock
             id='command-open'
             className='hidden'
-            command='open me.webp'
+            command='open me.avif'
           />
         </div>
 
