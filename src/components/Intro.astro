@@ -167,11 +167,6 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
     })
   }
 
-  gsap.delayedCall(0, () => {
-    convertToZerosRandomly()
-    gsap.delayedCall(0, splitScreen)
-  })
-
   const btnDownload = document.getElementById('btn-download')
   if (btnDownload) {
     btnDownload.addEventListener('click', () => {
@@ -179,8 +174,8 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
     })
   }
 
-  // gsap.delayedCall(1, () => {
-  //   convertToZerosRandomly()
-  //   gsap.delayedCall(1, splitScreen)
-  // })
+  gsap.delayedCall(1, () => {
+    convertToZerosRandomly()
+    gsap.delayedCall(1, splitScreen)
+  })
 </script>
