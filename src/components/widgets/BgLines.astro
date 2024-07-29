@@ -4,14 +4,16 @@ interface Props {
   /** example => border-white/20 */
   borderColor?: string
   isAbsolute?: boolean
+  className?: string
 }
-const { borderColor = 'border-white/20', isAbsolute } = Astro.props
+const { borderColor = 'border-white/20', isAbsolute, className } = Astro.props
 ---
 
 <div
   class={clsx(
-    'px-8 flex justify-between inset-0 z-[-1]',
-    isAbsolute ? 'absolute' : 'fixed h-screen'
+    'px-8 flex justify-between inset-0 pointer-events-none',
+    isAbsolute ? 'absolute' : 'fixed h-screen z-[-1]',
+    className
   )}
 >
   <div class=`border-r ${borderColor}`></div>

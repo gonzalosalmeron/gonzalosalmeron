@@ -83,3 +83,18 @@ const techStackOptions = {
   firebase: 'Firebase',
   plausible: 'Plausible'
 }
+
+export const socialNetworks = [
+  {
+    name: 'Linkedin',
+    link: 'https://linkedin.com/in/gonsalmeron'
+  },
+  {
+    name: 'Github',
+    link: 'https://github.com/gonzalosalmeron'
+  },
+  {
+    name: 'Google Play',
+    link: 'https://play.google.com/store/apps/developer?id=gonzxlodev'
+  }
+]

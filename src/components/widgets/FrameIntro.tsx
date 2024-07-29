@@ -58,7 +58,10 @@ export default function FrameIntro() {
   }
 
   return (
-    <WindowFrame className='h-52 bottom-4 left-8 max-w-xs w-full' draggable>
+    <WindowFrame
+      className='h-52 bottom-36 sm:bottom-4 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-8 max-w-xs w-full'
+      draggable
+    >
       <div className='flex justify-between flex-col p-4 h-full'>
         <div className='flex items-center gap-2 justify-start'>
           <div className='w-3 aspect-square bg-white mb-0.5' />
