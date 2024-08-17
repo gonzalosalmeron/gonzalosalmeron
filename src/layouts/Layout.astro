@@ -18,9 +18,16 @@ import BgLines from '@/components/widgets/BgLines.astro'
     <title>{`{GS}`}</title>
   </head>
   <body
-    class='bg-black text-white antialiased font-courier relative overflow-x-hidden overflow-hidden'
+    class='bg-black text-white antialiased font-courier relative overflow-x-hidden'
   >
     <BgLines />
+    <div
+      id='binary-screen'
+      class='w-full min-h-screen fixed z-50 pointer-events-none'
+    >
+      <div id='top-part' class='bg-black'></div>
+      <div id='bottom-part' class='bg-black'></div>
+    </div>
     <div
       id='cursor'
       class='bg-white rounded-full fixed z-50 mix-blend-difference pointer-events-none hidden sm:block'
@@ -49,4 +56,98 @@ import BgLines from '@/components/widgets/BgLines.astro'
       ease: 'power2.out'
     })
   }
+
+  const calculateRowsAndCols = (): { rows: number; cols: number } => {
+    const characterHeight = 22
+    const characterWidth = 9.6
+
+    const rows = Math.floor(window.innerHeight / characterHeight)
+    const cols = Math.floor(window.innerWidth / characterWidth)
+
+    return { rows, cols }
+  }
+
+  const topPart: HTMLElement | null = document.getElementById('top-part')
+  const bottomPart: HTMLElement | null = document.getElementById('bottom-part')
+
+  const generateStartText = (
+    element: HTMLElement,
+    rows: number,
+    cols: number
+  ) => {
+    for (let i = 0; i < rows; i++) {
+      const line = document.createElement('div')
+      line.style.flex = '1'
+      line.style.display = 'flex'
+      line.style.flexWrap = 'wrap'
+      for (let j = 0; j < cols; j++) {
+        const span = document.createElement('span')
+        span.textContent = Math.random() > 0.5 ? 'G' : 'S'
+        line.appendChild(span)
+      }
+      element.appendChild(line)
+    }
+  }
+
+  if (topPart && bottomPart) {
+    const { rows, cols } = calculateRowsAndCols()
+    generateStartText(topPart, Math.ceil(rows / 2), cols)
+    generateStartText(bottomPart, Math.floor(rows / 2), cols)
+  }
+
+  const convertToZerosRandomly = () => {
+    const spans: NodeListOf<HTMLSpanElement> = document.querySelectorAll(
+      '#binary-screen span'
+    )
+    spans.forEach((span) => {
+      gsap.to(span, {
+        textContent: '0',
+        duration: Math.random() * 0.5 + 0.1,
+        delay: Math.random() * 0.5
+      })
+    })
+  }
+
+  const mainContent: HTMLElement | null =
+    document.getElementById('main-content')
+
+  if (mainContent) {
+    mainContent.style.opacity = '0'
+    document.body.style.overflow = 'hidden'
+  }
+
+  const splitScreen = () => {
+    gsap.to('#top-part', {
+      y: '-100%',
+      duration: 1,
+      ease: 'power2.inOut'
+    })
+    gsap.to('#bottom-part', {
+      y: '100%',
+      duration: 1,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        const binaryScreen: HTMLElement | null =
+          document.getElementById('binary-screen')
+        if (binaryScreen && mainContent) {
+          binaryScreen.remove()
+          gsap.to(mainContent, { opacity: 1, duration: 3 })
+
+          gsap.to('#descriptions-cursor', {
+            opacity: 0,
+            repeat: -1,
+            yoyo: true,
+            duration: 0.5,
+            ease: 'power2.inOut'
+          })
+        }
+        document.body.style.overflow = 'unset'
+      }
+    })
+  }
+
+  gsap.delayedCall(0.1, () => {
+    convertToZerosRandomly()
+    gsap.delayedCall(0.1, splitScreen)
+  })
 </script>

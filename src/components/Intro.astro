@@ -6,16 +6,9 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
 
 <section class='relative min-h-screen'>
   <div
-    id='binary-screen'
-    class='w-full min-h-screen fixed z-50 pointer-events-none'
-  >
-    <div id='top-part' class='bg-black'></div>
-    <div id='bottom-part' class='bg-black'></div>
-  </div>
-  <div
     id='main-content'
     class='min-h-screen flex flex-col justify-between overflow-hidden px-8 py-4'
-    style='opacity: 0;'
+    style='opacity: 100;'
   >
     <Navbar />
     <div class='text-center pb-36 sm:pb-24'>
@@ -73,99 +66,16 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
     'I drink too much coffee',
     'Yes, I love cats'
   ]
-
-  const calculateRowsAndCols = (): { rows: number; cols: number } => {
-    const characterHeight = 22
-    const characterWidth = 9.6
-
-    const rows = Math.floor(window.innerHeight / characterHeight)
-    const cols = Math.floor(window.innerWidth / characterWidth)
-
-    return { rows, cols }
-  }
-
-  const generateStartText = (
-    element: HTMLElement,
-    rows: number,
-    cols: number
-  ) => {
-    for (let i = 0; i < rows; i++) {
-      const line = document.createElement('div')
-      line.style.flex = '1'
-      line.style.display = 'flex'
-      line.style.flexWrap = 'wrap'
-      for (let j = 0; j < cols; j++) {
-        const span = document.createElement('span')
-        span.textContent = Math.random() > 0.5 ? 'G' : 'S'
-        line.appendChild(span)
-      }
-      element.appendChild(line)
-    }
-  }
-
-  const topPart: HTMLElement | null = document.getElementById('top-part')
-  const bottomPart: HTMLElement | null = document.getElementById('bottom-part')
-
-  if (topPart && bottomPart) {
-    const { rows, cols } = calculateRowsAndCols()
-    generateStartText(topPart, Math.ceil(rows / 2), cols)
-    generateStartText(bottomPart, Math.floor(rows / 2), cols)
-  }
-
-  const convertToZerosRandomly = () => {
-    const spans: NodeListOf<HTMLSpanElement> = document.querySelectorAll(
-      '#binary-screen span'
-    )
-    spans.forEach((span) => {
-      gsap.to(span, {
-        textContent: '0',
-        duration: Math.random() * 0.5 + 0.1,
-        delay: Math.random() * 0.5
-      })
+  const tlMaster = gsap.timeline({ repeat: -1, delay: 2 })
+  phrases.forEach((text) => {
+    const tlText = gsap.timeline({
+      repeat: 1,
+      yoyo: true,
+      repeatDelay: 1
     })
-  }
-
-  const splitScreen = () => {
-    gsap.to('#top-part', {
-      y: '-100%',
-      duration: 1,
-      ease: 'power2.inOut'
-    })
-    gsap.to('#bottom-part', {
-      y: '100%',
-      duration: 1,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        const binaryScreen: HTMLElement | null =
-          document.getElementById('binary-screen')
-        const mainContent: HTMLElement | null =
-          document.getElementById('main-content')
-        if (binaryScreen && mainContent) {
-          binaryScreen.remove()
-          gsap.to(mainContent, { opacity: 1, duration: 3 })
-
-          gsap.to('#descriptions-cursor', {
-            opacity: 0,
-            repeat: -1,
-            yoyo: true,
-            duration: 0.5,
-            ease: 'power2.inOut'
-          })
-          let tlMaster = gsap.timeline({ repeat: -1, delay: 2 })
-          phrases.forEach((text) => {
-            let tlText = gsap.timeline({
-              repeat: 1,
-              yoyo: true,
-              repeatDelay: 1
-            })
-            tlText.to('#descriptions-text', { duration: 1, text })
-            tlMaster.add(tlText)
-          })
-        }
-        document.body.classList.remove('overflow-hidden')
-      }
-    })
-  }
+    tlText.to('#descriptions-text', { duration: 1, text })
+    tlMaster.add(tlText)
+  })
 
   const btnDownload = document.getElementById('btn-download')
   if (btnDownload) {
@@ -173,9 +83,4 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
       window.open('/files/cv-en-gonzalo-salmeron.pdf')
     })
   }
-
-  gsap.delayedCall(1, () => {
-    convertToZerosRandomly()
-    gsap.delayedCall(1, splitScreen)
-  })
 </script>
