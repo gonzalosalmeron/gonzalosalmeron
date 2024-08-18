@@ -1,0 +1,95 @@
+---
+import type { GetStaticPaths } from 'astro'
+import Layout from '@/layouts/Layout.astro'
+import { projects, techStackOptions } from '@/utils/libs'
+import type { Project } from '@/utils/libs'
+import ProjectInfoBox from '@/components/ui/ProjectInfoBox.astro'
+import ProjectBtn from '@/components/ui/ProjectBtn.astro'
+
+export const getStaticPaths = (() => {
+  return projects.map(({ slug }) => ({
+    params: { slug }
+  }))
+}) satisfies GetStaticPaths
+
+const { slug } = Astro.params
+
+const project = projects.find((project) => project.slug === slug) as Project
+
+if (!project) return Astro.redirect('/404')
+---
+
+<Layout>
+  <main class='w-full px-8 py-10'>
+    <section class='grid grid-cols-1 md:grid-cols-3'>
+      <div class='max-w-[30ch] mb-4 md:sticky top-4 h-fit'>
+        <button
+          onclick='window.history.go(-1); return false;'
+          class='text-zinc-400 text-xs uppercase mb-6 group pl-1'
+        >
+          <span
+            class='text-lg group-hover:-translate-x-0.5 translate-x-0.5 duration-200 inline-block'
+          >
+            ←
+          </span>
+          Volver
+        </button>
+        <h1
+          class='text-base uppercase pt-4'
+          style={`view-transition-name: project-title-${project.slug}`}
+        >
+          {project.name}
+        </h1>
+        <p
+          class='text-xs uppercase text-zinc-500'
+          style={`view-transition-name: project-summary-${project.slug}`}
+        >
+          {project.summary}
+        </p>
+      </div>
+
+      <div class='flex flex-col col-span-2'>
+        <div class='border border-white/80 overflow-hidden'>
+          <img
+            src={project.img}
+            alt={project.name}
+            class='w-full aspect-video object-cover'
+            style={`view-transition-name: project-img-${project.slug}`}
+          />
+        </div>
+
+        <ProjectInfoBox
+          className='pt-4'
+          title='Summary'
+          description={project.description}
+        />
+
+        <ProjectInfoBox title='Tech Stack'>
+          <ul class='flex flex-wrap gap-3 pt-1'>
+            {
+              project.techStack.map((tech) => (
+                <li>{techStackOptions[tech].name}</li>
+              ))
+            }
+          </ul>
+        </ProjectInfoBox>
+
+        {
+          (project?.link || project?.repository) && (
+            <div class='flex flex-col md:flex-row gap-2 w-full'>
+              {project?.link && (
+                <ProjectBtn name='Visit project' link={project.link} />
+              )}
+              {project?.repository && (
+                <ProjectBtn
+                  name='Visit github repository'
+                  link={project.repository}
+                />
+              )}
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Layout>

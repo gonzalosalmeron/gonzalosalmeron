@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string
+  link: string
+}
+
+const { name, link } = Astro.props
+---
+
+<a
+  href={link}
+  class='bg-zinc-800 rounded py-2 px-4 w-full md:max-w-[50%] flex items-center justify-between text-sm group'
+  target='_blank'
+  rel='noopener noreferrer'
+>
+  {name}
+  <span class='text-lg group-hover:translate-x-1 duration-200 inline-block'
+    >→</span
+  >
+</a>

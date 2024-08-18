@@ -55,32 +55,35 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
 <script>
   import gsap from 'gsap'
   import { TextPlugin } from 'gsap/dist/TextPlugin'
-
   gsap.registerPlugin(TextPlugin)
 
-  const phrases = [
-    'I´m a software developer',
-    'I develop web apps',
-    'Also mobile apps',
-    'In general I love programming',
-    'I drink too much coffee',
-    'Yes, I love cats'
-  ]
-  const tlMaster = gsap.timeline({ repeat: -1, delay: 2 })
-  phrases.forEach((text) => {
-    const tlText = gsap.timeline({
-      repeat: 1,
-      yoyo: true,
-      repeatDelay: 1
-    })
-    tlText.to('#descriptions-text', { duration: 1, text })
-    tlMaster.add(tlText)
-  })
+  document.addEventListener('astro:page-load', () => {
+    if (!document.getElementById('descriptions-text')) return
+    const phrases = [
+      'I´m a software developer',
+      'I develop web apps',
+      'Also mobile apps',
+      'In general I love programming',
+      'I drink too much coffee',
+      'Yes, I love cats'
+    ]
 
-  const btnDownload = document.getElementById('btn-download')
-  if (btnDownload) {
-    btnDownload.addEventListener('click', () => {
-      window.open('/files/cv-en-gonzalo-salmeron.pdf')
+    const tlMaster = gsap.timeline({ repeat: -1, delay: 2 })
+    phrases.forEach((text) => {
+      let tlText = gsap.timeline({
+        repeat: 1,
+        yoyo: true,
+        repeatDelay: 1
+      })
+      tlText?.to('#descriptions-text', { duration: 1, text })
+      tlMaster.add(tlText)
     })
-  }
+
+    const btnDownload = document.getElementById('btn-download')
+    if (btnDownload) {
+      btnDownload.addEventListener('click', () => {
+        window.open('/files/cv-en-gonzalo-salmeron.pdf')
+      })
+    }
+  })
 </script>

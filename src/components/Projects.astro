@@ -24,7 +24,8 @@ import clsx from 'clsx'
           projects
             .sort((a, b) => b.date.getDate() - a.date.getDate())
             .map((project, i) => (
-              <div
+              <a
+                href={`project/${project.slug}`}
                 class={clsx(
                   'row-span-1 hover:shadow-xl transition overflow-hidden duration-200 shadow-input dark:shadow-none bg-white border border-white relative group',
                   (i % 7 === 3 || i % 7 === 6) && 'md:col-span-2'
@@ -39,16 +40,27 @@ import clsx from 'clsx'
                         })}
                       )`}
                     </p>
-                    <p class='text-base uppercase'>{project.name}</p>
-                    <p class='text-sm'>{project.description}</p>
+                    <p
+                      class='text-base uppercase'
+                      style={`view-transition-name: project-title-${project.slug}`}
+                    >
+                      {project.name}
+                    </p>
+                    <p
+                      class='text-sm'
+                      style={`view-transition-name: project-summary-${project.slug}`}
+                    >
+                      {project.summary}
+                    </p>
                   </div>
                 </div>
                 <img
                   src={project.img}
                   alt={project.name}
                   class='object-cover w-full h-full group-hover:scale-105 duration-300'
+                  style={`view-transition-name: project-img-${project.slug}`}
                 />
-              </div>
+              </a>
             ))
         }
       </div>

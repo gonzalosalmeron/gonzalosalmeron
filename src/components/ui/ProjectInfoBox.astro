@@ -1,0 +1,16 @@
+---
+import clsx from 'clsx'
+
+interface Props {
+  title: string
+  description?: string
+  className?: string
+}
+
+const { title, description, className } = Astro.props
+---
+
+<div class={clsx('border-b border-zinc-700 pb-3 mb-4', className)}>
+  <h2 class='text-sm text-zinc-500 uppercase mb-1.5'>{title}</h2>
+  {description ? <p class='text-sm'>{description}</p> : <slot />}
+</div>

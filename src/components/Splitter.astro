@@ -30,14 +30,21 @@
 </section>
 
 <script>
-  const element = document.getElementById('circular-text')
+  let element = document.getElementById('circular-text')
 
-  if (element) {
-    document.addEventListener('scroll', () => {
-      const scrollDeg = document.getElementsByTagName('html')[0]?.scrollTop ?? 0
-
-      element.style.rotate = `${scrollDeg / 2}deg`
-      element.style.scale = `${Math.min(scrollDeg / 30, 120)}%`
-    })
+  const rotate = () => {
+    if (!element) return
+    const scrollDeg = document.getElementsByTagName('html')[0]?.scrollTop ?? 0
+    element.style.rotate = `${scrollDeg / 2}deg`
+    element.style.scale = `${Math.min(scrollDeg / 30, 120)}%`
   }
+
+  document.addEventListener('astro:page-load', () => {
+    element = document.getElementById('circular-text')
+    if (element) document.addEventListener('scroll', rotate)
+  })
+
+  document.addEventListener('astro:before-swap', () => {
+    document.removeEventListener('scroll', rotate)
+  })
 </script>
