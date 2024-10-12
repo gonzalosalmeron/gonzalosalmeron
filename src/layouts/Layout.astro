@@ -109,9 +109,9 @@ import { ViewTransitions } from 'astro:transitions'
         )
         spans.forEach((span) => {
           gsap.to(span, {
-            textContent: '0',
+            textContent: Math.random() < 0.5 ? '0' : '1',
             duration: Math.random() * 0.5 + 0.1,
-            delay: Math.random() * 0.5
+            delay: Math.random() * 1.5
           })
         })
       }
@@ -155,9 +155,9 @@ import { ViewTransitions } from 'astro:transitions'
         })
       }
 
-      gsap.delayedCall(0.1, () => {
+      gsap.delayedCall(0.7, () => {
         convertToZerosRandomly()
-        gsap.delayedCall(0.1, splitScreen)
+        gsap.delayedCall(1.8, splitScreen)
       })
     </script>
   </body>
