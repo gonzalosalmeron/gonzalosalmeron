@@ -7,12 +7,12 @@ const BOTTOM_PART = document.getElementById('bottom-part')
 
 const initializeScreen = () => {
   const { innerWidth, innerHeight } = window
-  const rows = Math.floor(innerHeight / CHAR_HEIGHT)
+  const rows = Math.floor(innerHeight / CHAR_HEIGHT / 2)
   const cols = Math.floor(innerWidth / CHAR_WIDTH)
 
   if (TOP_PART && BOTTOM_PART) {
-    TOP_PART.textContent = createTextGrid(rows / 2, cols)
-    BOTTOM_PART.textContent = createTextGrid(rows / 2, cols)
+    TOP_PART.textContent = createTextGrid(rows, cols)
+    BOTTOM_PART.textContent = createTextGrid(rows, cols)
   }
 }
 
@@ -36,7 +36,7 @@ const createTextGrid = (rows: number, cols: number): string => {
     .join('\n')
 }
 
-const convertToZerosRandomly = (changesPerFrame: number = 50) => {
+const convertToZerosRandomly = () => {
   const topPartChars = TOP_PART?.textContent?.split('\n') || []
   const bottomPartChars = BOTTOM_PART?.textContent?.split('\n') || []
 
@@ -44,6 +44,9 @@ const convertToZerosRandomly = (changesPerFrame: number = 50) => {
 
   const rows = topPartChars.length
   const cols = topPartChars[0].length
+
+  const changesPerFrame =
+    cols > 150 ? 50 : cols > 100 ? 40 : cols > 70 ? 28 : 12
 
   let randomPositions = Array.from({ length: rows * cols }, (_, i) => i)
   randomPositions = randomPositions.sort(() => Math.random() - 0.5)
@@ -101,7 +104,7 @@ const splitScreen = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (import.meta.env.DEV) return
+  // if (import.meta.env.DEV) return
 
   initializeScreen()
   const mainContent = document.getElementById('main-content')
