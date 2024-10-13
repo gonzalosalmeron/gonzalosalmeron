@@ -1,0 +1,34 @@
+---
+const { title, description, seoImage, seoUrl } = Astro.props
+const projectUrl = import.meta.env.PUBLIC_PROJECT_URL
+---
+
+<meta
+  name='description'
+  content={description ||
+    "Welcome to Gonzalo Salmerón's portfolio, a software developer based in Málaga, Spain. Explore his projects and career journey, specializing in website development and custom software solutions."}
+/>
+<meta
+  property='og:title'
+  content={title || 'Gonzalo Salmerón - Software Developer'}
+/>
+<meta
+  property='og:description'
+  content={description ||
+    'Discover the work of Gonzalo Salmerón, a software developer specializing in creating visually appealing and impactful solutions for users.'}
+/>
+<meta property='og:url' content={seoUrl || projectUrl} />
+<meta property='og:type' content='website' />
+<meta name='twitter:card' content='summary_large_image' />
+<meta
+  name='twitter:title'
+  content={title || 'Gonzalo Salmerón - Software Developer'}
+/>
+<meta
+  name='twitter:description'
+  content={description ||
+    'Explore the portfolio of Gonzalo Salmerón, a passionate developer focused on building unique digital experiences.'}
+/>
+{seoImage && <meta name='twitter:image' content={seoImage} />}
+<meta name='twitter:url' content={seoUrl || projectUrl} />
+<title>{title || `${'{GS} - Gonzalo Salmerón'}`}</title>

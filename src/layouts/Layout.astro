@@ -1,5 +1,6 @@
 ---
 import Footer from '@/components/Footer.astro'
+import MetaTags from '@/components/ui/MetaTags.astro'
 import BgLines from '@/components/widgets/BgLines.astro'
 
 import { ViewTransitions } from 'astro:transitions'
@@ -9,7 +10,7 @@ import { ViewTransitions } from 'astro:transitions'
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.avif' />
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link
@@ -27,7 +28,13 @@ import { ViewTransitions } from 'astro:transitions'
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
     <ViewTransitions />
-    <title>{`{GS}`}</title>
+
+    <MetaTags
+      title={Astro.props.title}
+      description={Astro.props.description}
+      seoImage={Astro.props.seoImage}
+      seoUrl={Astro.props.seoUrl}
+    />
   </head>
   <body
     class='bg-black text-white antialiased font-courier relative overflow-x-hidden'
@@ -50,5 +57,13 @@ import { ViewTransitions } from 'astro:transitions'
     <slot />
 
     <Footer />
+    <script is:inline>
+      document.addEventListener('astro:page-load', () => {
+        umami?.track((props) => ({
+          ...props,
+          url: window?.location?.pathname ?? 'undefined'
+        }))
+      })
+    </script>
   </body>
 </html>

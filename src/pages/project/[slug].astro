@@ -15,11 +15,24 @@ export const getStaticPaths = (() => {
 const { slug } = Astro.params
 
 const project = projects.find((project) => project.slug === slug) as Project
+const projectUrl = import.meta.env.PUBLIC_PROJECT_URL
 
 if (!project) return Astro.redirect('/404')
+
+const seoTitle = `${project.name} - Gonzalo Salmerón`
+const seoDescription = `Learn more about ${project.name}, a project by Gonzalo Salmerón. Discover how it was built using ${project.techStack
+  .map((tech) => techStackOptions[tech].name)
+  .join(', ')} and the unique challenges it solves.`
+const seoImage = `${projectUrl}${project.img}`
+const seoUrl = `${projectUrl}/projects/${slug}`
 ---
 
-<Layout>
+<Layout
+  title={seoTitle}
+  description={seoDescription}
+  seoImage={seoImage}
+  seoUrl={seoUrl}
+>
   <main class='w-full px-8 py-10'>
     <section class='grid grid-cols-1 md:grid-cols-3'>
       <div class='max-w-[30ch] mb-4 md:sticky top-4 h-fit'>
@@ -93,7 +106,3 @@ if (!project) return Astro.redirect('/404')
     </section>
   </main>
 </Layout>
-
-<script is:inline>
-  umami?.track()
-</script>
