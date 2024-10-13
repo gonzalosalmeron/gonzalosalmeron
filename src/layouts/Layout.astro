@@ -16,8 +16,11 @@ import { ViewTransitions } from 'astro:transitions'
       href='https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap'
       rel='stylesheet'
     />
+    <script src='@/utils/intro-animation'></script>
+    <script src='@/utils/cursor-animation'></script>
     <script
       defer
+      is:inline
       src='https://cloud.umami.is/script.js'
       data-auto-track='false'
       data-website-id='01678b02-d0a4-443b-992a-8d8f88db2eb6'></script>
@@ -47,122 +50,5 @@ import { ViewTransitions } from 'astro:transitions'
     <slot />
 
     <Footer />
-
-    <script>
-      import gsap from 'gsap'
-      const cursor = document.getElementById('cursor')
-
-      document.onmousemove = (e) => {
-        const target = e.target as HTMLElement
-        const cursorSize = ['a'].includes(target?.tagName.toLowerCase())
-          ? 40
-          : 20
-        const transform = cursorSize / 2
-
-        gsap.to(cursor, { width: cursorSize, height: cursorSize })
-
-        gsap.to(cursor, {
-          left: e.clientX - transform,
-          top: e.clientY - transform,
-          ease: 'power2.out'
-        })
-      }
-
-      const calculateRowsAndCols = (): { rows: number; cols: number } => {
-        const characterHeight = 22
-        const characterWidth = 9.6
-
-        const rows = Math.floor(window.innerHeight / characterHeight)
-        const cols = Math.floor(window.innerWidth / characterWidth)
-
-        return { rows, cols }
-      }
-
-      const topPart: HTMLElement | null = document.getElementById('top-part')
-      const bottomPart: HTMLElement | null =
-        document.getElementById('bottom-part')
-
-      const generateStartText = (
-        element: HTMLElement,
-        rows: number,
-        cols: number
-      ) => {
-        for (let i = 0; i < rows; i++) {
-          const line = document.createElement('div')
-          line.style.flex = '1'
-          line.style.display = 'flex'
-          line.style.flexWrap = 'wrap'
-          for (let j = 0; j < cols; j++) {
-            const span = document.createElement('span')
-            span.textContent = Math.random() > 0.5 ? 'G' : 'S'
-            line.appendChild(span)
-          }
-          element.appendChild(line)
-        }
-      }
-
-      if (topPart && bottomPart) {
-        const { rows, cols } = calculateRowsAndCols()
-        generateStartText(topPart, Math.ceil(rows / 2), cols)
-        generateStartText(bottomPart, Math.floor(rows / 2), cols)
-      }
-
-      const convertToZerosRandomly = () => {
-        const spans: NodeListOf<HTMLSpanElement> = document.querySelectorAll(
-          '#binary-screen span'
-        )
-        spans.forEach((span) => {
-          gsap.to(span, {
-            textContent: Math.random() < 0.8 ? '0' : '1',
-            duration: Math.random() * 0.5 + 0.1,
-            delay: Math.random() * 1.5
-          })
-        })
-      }
-
-      const mainContent: HTMLElement | null =
-        document.getElementById('main-content')
-
-      if (mainContent) {
-        mainContent.style.opacity = '0'
-        document.body.style.overflow = 'hidden'
-      }
-
-      const splitScreen = () => {
-        gsap.to('#top-part', {
-          y: '-100%',
-          duration: 1,
-          ease: 'power2.inOut'
-        })
-        gsap.to('#bottom-part', {
-          y: '100%',
-          duration: 1,
-          ease: 'power2.inOut',
-          onComplete: () => {
-            const binaryScreen: HTMLElement | null =
-              document.getElementById('binary-screen')
-            binaryScreen?.remove()
-            document.body.style.overflow = 'unset'
-
-            if (mainContent) {
-              gsap.to(mainContent, { opacity: 1, duration: 3 })
-
-              gsap.to('#descriptions-cursor', {
-                opacity: 0,
-                repeat: -1,
-                yoyo: true,
-                duration: 0.5,
-                ease: 'power2.inOut'
-              })
-            }
-          }
-        })
-      }
-
-      gsap.delayedCall(0.7, () => {
-        convertToZerosRandomly()
-        gsap.delayedCall(1.8, splitScreen)
-      })
-    </script>
   </body>
 </html>
