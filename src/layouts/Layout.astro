@@ -19,6 +19,7 @@ import { ViewTransitions } from 'astro:transitions'
     <script
       defer
       src='https://cloud.umami.is/script.js'
+      data-auto-track='false'
       data-website-id='01678b02-d0a4-443b-992a-8d8f88db2eb6'></script>
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
@@ -49,7 +50,6 @@ import { ViewTransitions } from 'astro:transitions'
 
     <script>
       import gsap from 'gsap'
-
       const cursor = document.getElementById('cursor')
 
       document.onmousemove = (e) => {
@@ -113,7 +113,7 @@ import { ViewTransitions } from 'astro:transitions'
         )
         spans.forEach((span) => {
           gsap.to(span, {
-            textContent: Math.random() < 0.5 ? '0' : '1',
+            textContent: Math.random() < 0.8 ? '0' : '1',
             duration: Math.random() * 0.5 + 0.1,
             delay: Math.random() * 1.5
           })

@@ -82,6 +82,7 @@ import MouseDown from '@/components/widgets/MouseDown.astro'
     const btnDownload = document.getElementById('btn-download')
     if (btnDownload) {
       btnDownload.addEventListener('click', () => {
+        umami?.track('btn-download-cv')
         window.open('/files/cv-en-gonzalo-salmeron.pdf')
       })
     }

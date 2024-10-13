@@ -93,3 +93,7 @@ if (!project) return Astro.redirect('/404')
     </section>
   </main>
 </Layout>
+
+<script is:inline>
+  umami?.track()
+</script>
