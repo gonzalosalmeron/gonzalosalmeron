@@ -101,13 +101,15 @@ const splitScreen = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (import.meta.env.DEV) return
+
   initializeScreen()
   const mainContent = document.getElementById('main-content')
   if (mainContent) {
     mainContent.style.opacity = '0'
     document.body.style.overflow = 'hidden'
   }
-
+  console.log(import.meta.env.PUBLIC_ISDEV)
   setTimeout(() => {
     convertToZerosRandomly()
     setTimeout(splitScreen, 1.2 * 1000)
