@@ -1,7 +1,7 @@
 {
   "name": "gonzalosalmeron-portfolio",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.7.0",
     "@astrojs/react": "^3.6.0",
+    "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.0",
     "@gsap/react": "^2.1.1",
     "astro": "^4.11.4",
