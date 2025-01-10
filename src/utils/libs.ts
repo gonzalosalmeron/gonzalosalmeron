@@ -78,7 +78,8 @@ export const projects: Project[] = [
       'Bullyganza is a website dedicated to the organization and promotion of dog events, particularly those focused on the Bully breed. The platform provides detailed information about upcoming events, including schedules, locations, and participant registration. Built with Laravel and Vue, the site is both visually appealing and functionally robust, offering a seamless user experience for dog enthusiasts. Whether you are a breeder, a competitor, or just a fan, Bullyganza is the go-to source for all things related to Bully events.',
     img: '/img/projects/bullyganza.avif',
     techStack: ['laravel', 'vue', 'javascript', 'tailwind', 'sql'],
-    date: new Date('2022-07-01')
+    date: new Date('2022-07-01'),
+    link: 'https://bullyganza.com'
   },
   {
     name: 'Yummy',
