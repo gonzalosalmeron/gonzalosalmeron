@@ -17,17 +17,6 @@ import {
 
 export const projects: Project[] = [
   {
-    name: 'Nescafe Timer',
-    slug: 'nescafe-timer',
-    summary: 'Ensures your Dolce Gusto capsules brew to perfection.',
-    description:
-      'The idea for the creation of this project comes from the need of a family member who had a Nescafé Dolce Gusto coffee maker and when it was time to prepare the coffees, he did not know how long the machine had to be on until the lever was removed. Therefore, I developed this app based on the times suggested by the brand itself on its official website. The app provides an easy-to-use timer that guarantees optimal brewing time, ensuring every cup is made to perfection.',
-    img: '/img/projects/nescafe-timer.avif',
-    techStack: ['flutter'],
-    date: new Date('2024-04-01'),
-    link: 'https://play.google.com/store/apps/details?id=com.gonzxlodev.nescafe_timer'
-  },
-  {
     name: 'Creafacturas',
     slug: 'creafacturas',
     summary: 'Invoice generation platform.',
@@ -176,6 +165,6 @@ export const socialNetworks = [
   },
   {
     name: 'Google Play',
-    link: 'https://play.google.com/store/apps/developer?id=gonzxlodev'
+    link: 'https://play.google.com/store/apps/developer?id=gonzalosalmeron'
   }
 ]
